@@ -1,4 +1,4 @@
-
+# 4-13-2017 - started "something meaningful project using Sinatra skeleton"
 ### Purpose
 The Sinatra Skeleton:
 
