@@ -1,9 +1,7 @@
-require 'faker'
 
-User.destroy_all
 
-100.times do
-  User.create!( username: Faker::Internet.user_name,
-                email: Faker::Internet.email,
-                password: "pwd" )
+Quote.destroy_all
+quotes_to_use = ['Eat Kale','Pushups are your friend','Situps are the secret to happiness','Remember to giggle','Turn that frown upside down']
+quotes_to_use.each do |quote_to_use|
+  new_quote = Quote.create!(quotation_text: quote_to_use)
 end

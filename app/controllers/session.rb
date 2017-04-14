@@ -1,5 +1,8 @@
 get '/' do
-  # later, use API call to get quote of the day
-  @quote = 'Turn that frown upside down!'
+  # @quote = Quote.quotation_text.sample
+  num_quotes = Quote.count
+  all_quotes=Quote.all
+  p all_quotes
+  @quote = all_quotes.find(rand(0...num_quotes))
   erb :'/index'
 end
