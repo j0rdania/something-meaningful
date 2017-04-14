@@ -1,8 +1,7 @@
 
 body {
-  background: pink;
+  background: #f5bcbc;
   margin: 0 auto;
-  background-image: url("yellow.jpeg");
 }
 
 th, td, table {
@@ -26,9 +25,12 @@ a:visited {
   color: red;
 }
 
+.source {font-size: 75%;}
 
+h2 {text-align: center;}
 
 h1 {text-align: center;
+  font-size: 400%;
 }
 
 #follow_steps {
