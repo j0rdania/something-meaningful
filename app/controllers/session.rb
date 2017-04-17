@@ -7,26 +7,13 @@ require "sinatra/json"
 get '/' do
   # get random quote from database
   quote_to_use = Quote.all.sample
-  puts quote_to_use.quotation_text
   quote_to_use = quote_to_use.quotation_text.gsub(' ','%20')
-  puts 'quote to use after blanks subbed to follow'
-  puts quote_to_use
   #convert quote of day to cow say
   quote_to_cowify = "http://cowsay.morecode.org/say?message=#{quote_to_use}&format=html"
-  puts 'quote to cowify to follow'
-  puts quote_to_cowify
   uri = URI.parse(quote_to_cowify)
-  puts 'uri to follow'
-  p uri
   req = Net::HTTP::Get.new(uri.to_s)
-  puts 'req to follow'
-  p req
   response = Net::HTTP.get_response(uri)
-  puts 'response to follow'
-  p response
   body = Net::HTTP.get(uri)
-  puts 'body to follow'
-  p body
   @cow_quote = body
 
   # get current weather at Bull Frog station
@@ -50,3 +37,14 @@ get '/' do
   @cow_weather = body
   erb :'/index'
 end
+
+def cowify(string_to_cowify,html_or_text)
+  string_to_cowify = string_to_cowify.gsub(' ','%20')
+  string_to_cowify = "http://cowsay.morecode.org/say?message=#{string_to_cowify}&format=#{html_or_text}"
+  uri = URI.parse(string_to_cowify)
+  req = Net::HTTP::Get.new(uri.to_s)
+  response = Net::HTTP.get_response(uri)
+  body = Net::HTTP.get(uri)
+  return body
+end
+
