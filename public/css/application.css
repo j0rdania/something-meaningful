@@ -6,7 +6,6 @@ body {
 
 th, td, table {
   border: 1px solid black;
-
 }
 
 th {
@@ -17,6 +16,7 @@ th {
   max-width: 80%;
 
 }
+
 a {
   color: blue;
 }
@@ -27,10 +27,15 @@ a:visited {
 
 .source {font-size: 75%;}
 
-h2 {text-align: center;}
+.link {font-size: 75%;}
+
 
 h1 {text-align: center;
-  font-size: 400%;
+  font-size: 300%;
+}
+
+h2 {  text-align: center;
+      font-size: 200%;
 }
 
 #follow_steps {
@@ -47,18 +52,14 @@ table {
   margin-left: 5%;
 }
 
-#quote-of-day {margin-left: auto;
+.cow-pic {margin-left: auto;
   margin-right: auto;
   width: 80%;
-  font-size: 150%;
+  font-size: 120%;
 }
-
-#weather-in-bull-frog{margin-left: auto;
-  margin-right: auto;
-  width: 80%;
-  font-size: 150%;
+.cow-pic-intro {
+font-size: 200%;
 }
-
 
 div.ways_to_get_happy {
   margin-left: auto;
@@ -100,6 +101,7 @@ div.pics_and_associated_material_bottom {
 
   }
 }
+
 @media screen and (max-width: 650px) {
   div.pics_and_associated_material_bottom {
     display: none;

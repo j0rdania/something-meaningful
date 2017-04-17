@@ -4,6 +4,10 @@ require "uri"
 require "sinatra"
 require "sinatra/json"
 
+require 'rubygems'
+require 'nokogiri'
+require 'rest-client'
+
 def cowify(string_to_cowify,html_or_text)
   string_to_cowify = string_to_cowify.gsub(' ','%20')
   string_to_cowify = "http://cowsay.morecode.org/say?message=#{string_to_cowify}&format=#{html_or_text}"
@@ -12,6 +16,25 @@ def cowify(string_to_cowify,html_or_text)
   response = Net::HTTP.get_response(uri)
   body = Net::HTTP.get(uri)
   return body
+end
+
+def cowify_strip_ads(string_to_cowify,html_or_text)
+  string_to_cowify = string_to_cowify.gsub(' ','%20')
+  string_to_cowify = "http://cowsay.morecode.org/say?message=#{string_to_cowify}&format=#{html_or_text}"
+  # uri = URI.parse(string_to_cowify)
+  # req = Net::HTTP::Get.new(uri.to_s)
+  # response = Net::HTTP.get_response(uri)
+  # body = Net::HTTP.get(uri)
+  body = Nokogiri::HTML(RestClient.get(string_to_cowify))
+
+  return body
+end
+
+def get_middle_string(whole_string,first_string, second_string)
+  # return the string that lies between the first and second string
+  # chop off end
+  fragment =  Nokogiri::HTML.fragment(whole_string)
+
 end
 
 get '/' do
@@ -24,7 +47,8 @@ get '/' do
   # req = Net::HTTP::Get.new(uri.to_s)
   # response = Net::HTTP.get_response(uri)
   # body = Net::HTTP.get(uri)
-  @cow_quote = cowify(quote_to_use,'html')
+  # @cow_quote = cowify_strip_ads(quote_to_use,'html')
+  @cow_quote="HI"
 
   # get current weather at Bull Frog station
   weather_request = 'http://wsdot.com/Traffic/api/WeatherInformation/WeatherInformationREST.svc/GetCurrentWeatherInformationByStationIDAsJson?AccessCode=50bf2668-84ee-4983-bc54-f6dae3a5a31d&StationID=3002'
@@ -39,7 +63,7 @@ get '/' do
   # @cow_weather = @cow_weather.gsub(' ','%20')
 
   #convert weather report to cow say
-  @cow_weather = cowify(@cow_weather,'html')
+  @cow_weather = cowify_strip_ads(@cow_weather,'html')
   # weather_to_cowify = "http://cowsay.morecode.org/say?message=#{@cow_weather}&format=html"
   # uri = URI.parse(weather_to_cowify)
   # req = Net::HTTP::Get.new(uri.to_s)
