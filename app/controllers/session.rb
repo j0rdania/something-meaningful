@@ -5,8 +5,6 @@ require "sinatra"
 require "sinatra/json"
 
 require 'rubygems'
-require 'nokogiri'
-require 'rest-client'
 
 def cowify(string_to_cowify,html_or_text)
   string_to_cowify = string_to_cowify.gsub(' ','%20')
@@ -23,7 +21,6 @@ def get_string_between_markers whole_string, marker1, marker2
 end
 
 def strip_ads(string_to_de_ad)
-  # body = Nokogiri::HTML(RestClient.get(string_to_cowify))
   body = get_string_between_markers(string_to_de_ad,'MOO!</a></h1>','</html>')
   puts 'BODY TO FOLLOW'
   p body
