@@ -21,17 +21,15 @@ def get_string_between_markers whole_string, marker1, marker2
 end
 
 def strip_ads(string_to_de_ad)
+  # remove moo button
   body = get_string_between_markers(string_to_de_ad,'MOO!</a></h1>','</html>')
-  puts 'BODY TO FOLLOW'
-  p body
   return body
 end
 
 get '/' do
   # get random quote from database
   quote_to_use = Quote.all.sample.quotation_text
-  @cow_quote = cowify(quote_to_use,'html')
-  @cow_quote=strip_ads(@cow_quote)
+  @cow_quote=strip_ads(cowify(quote_to_use,'html'))
 
   #get current weather at Bull Frog station
   weather_request = 'http://wsdot.com/Traffic/api/WeatherInformation/WeatherInformationREST.svc/GetCurrentWeatherInformationByStationIDAsJson?AccessCode=50bf2668-84ee-4983-bc54-f6dae3a5a31d&StationID=3002'
@@ -45,7 +43,7 @@ get '/' do
   @cow_weather = "Temperature in #{@station_name}: #{@temp} degrees Farenheit.  Woohoo! What a lovely day!"
 
   # convert weather report to cow say
-  @cow_weather = cowify(@cow_weather,'html')
+  @cow_weather = strip_ads(cowify(@cow_weather,'html'))
 
   erb :'/index'
 end
