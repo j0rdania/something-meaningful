@@ -33,17 +33,8 @@ end
 get '/' do
   # get random quote from database
   quote_to_use = Quote.all.sample.quotation_text
-  puts 'QUOTE TO USE TO Follow'
-  p quote_to_use
-  # quote_to_use = quote_to_use.quotation_text.gsub(' ','%20')
-  # # convert quote of day to cow say
-  # quote_to_cowify = "http://cowsay.morecode.org/say?message=#{quote_to_use}&format=html"
-  # uri = URI.parse(quote_to_cowify)
-  # req = Net::HTTP::Get.new(uri.to_s)
-  # response = Net::HTTP.get_response(uri)
-  # body = Net::HTTP.get(uri)
   @cow_quote = cowify(quote_to_use,'html')
-  # @cow_quote=strip_ads(@cow_quote)
+  @cow_quote=strip_ads(@cow_quote)
 
   #get current weather at Bull Frog station
   weather_request = 'http://wsdot.com/Traffic/api/WeatherInformation/WeatherInformationREST.svc/GetCurrentWeatherInformationByStationIDAsJson?AccessCode=50bf2668-84ee-4983-bc54-f6dae3a5a31d&StationID=3002'
@@ -55,16 +46,9 @@ get '/' do
   @station_name= result['StationName']
   @temp = result['TemperatureInFahrenheit']
   @cow_weather = "Temperature in #{@station_name}: #{@temp} degrees Farenheit.  Woohoo! What a lovely day!"
-  # @cow_weather = @cow_weather.gsub(' ','%20')
 
   # convert weather report to cow say
   @cow_weather = cowify(@cow_weather,'html')
-  # weather_to_cowify = "http://cowsay.morecode.org/say?message=#{@cow_weather}&format=html"
-  # uri = URI.parse(weather_to_cowify)
-  # req = Net::HTTP::Get.new(uri.to_s)
-  # response = Net::HTTP.get_response(uri)
-  # body = Net::HTTP.get(uri)
-  # @cow_weather = body
 
   erb :'/index'
 end
