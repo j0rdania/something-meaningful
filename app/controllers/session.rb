@@ -41,27 +41,32 @@ get '/' do
   result = JSON.parse(body)
   @station_name= result['StationName']
   @temp = result['TemperatureInFahrenheit']
-  @cow_weather = "Temperature in #{@station_name}: #{@temp}F.  Woohoo! What a lovely day!"
+  @cow_weather = "Temperature in #{@station_name}: #{@temp} degrees Farenheit.  Woohoo! What a lovely day!"
   @cow_weather = @cow_weather.gsub(' ','%20')
   puts '@cow_weather to follow'
   p @cow_weather
 
   #convert weather report to cow say
-  # @cow_weather = 'cold'
-  # weather_to_cowify = "http://cowsay.morecode.org/say?message=#{@cow_weather}&format=text"
-  # puts 'weather to cowify to follow'
-  # puts weather_to_cowify
-  # uri = URI.parse(weather_to_cowify)
-  # puts 'uri to follow'
-  # p uri
-  # req = Net::HTTP::Get.new(uri.to_s)
-  # puts 'req to follow'
-  # p req
-  # response = Net::HTTP.start(uri.host, uri.port) {|http|
-  #   http.request(req)
-  # }
-  # puts 'response to follow'
-  # p response
+  @cow_weather = 'cold'
+  weather_to_cowify = "http://cowsay.morecode.org/say?message=#{@cow_weather}&format=html"
+  puts 'weather to cowify to follow'
+  puts weather_to_cowify
+  uri = URI.parse(weather_to_cowify)
+  puts 'uri to follow'
+  p uri
+  req = Net::HTTP::Get.new(uri.to_s)
+  puts 'req to follow'
+  p req
+  response = Net::HTTP.get_response(uri)
+  puts 'response to follow'
+  p response
+  body = Net::HTTP.get(uri)
+  puts 'body before json parse to follow'
+  p body
+  # result = JSON.parse(body)
+  # puts 'result aFTER json parse to follow'
+  # p result
+  @cow_weather = body
   # res = res.body
   # puts 'res.body to follow'
   # p res.body
