@@ -47,7 +47,6 @@ get '/' do
   p @cow_weather
 
   #convert weather report to cow say
-  @cow_weather = 'cold'
   weather_to_cowify = "http://cowsay.morecode.org/say?message=#{@cow_weather}&format=html"
   puts 'weather to cowify to follow'
   puts weather_to_cowify
